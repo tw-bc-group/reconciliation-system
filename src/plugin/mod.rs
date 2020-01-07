@@ -9,9 +9,10 @@ use anyhow::Result;
 mod flush;
 
 pub mod prelude {
-    pub use super::flush::{Flush as FlushPlugin, *};
+    pub use super::flush::*;
+    pub use anyhow::Result;
     pub use serde::Deserialize;
-    pub use serde_json::Value;
+    pub use serde_json::{json, Value};
 }
 
 fn dylib_extension() -> &'static str {
@@ -28,7 +29,7 @@ fn dylib_extension() -> &'static str {
     }
 }
 
-fn plugin_list<P: AsRef<Path>>(dir: P) -> Result<Vec<PathBuf>> {
+fn list_dylib<P: AsRef<Path>>(dir: P) -> Result<Vec<PathBuf>> {
     read_dir(dir.as_ref()).map_err(Into::into).map(|read_res| {
         debug!("plugin_list, dir: {:?}", dir.as_ref());
         read_res
