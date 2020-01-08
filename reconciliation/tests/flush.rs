@@ -1,6 +1,6 @@
 use std::path::Path;
 
-use reconciliation_system::plugin::prelude::*;
+use reconciliation::plugin::prelude::*;
 
 #[test]
 fn test_flush_plugin() {
