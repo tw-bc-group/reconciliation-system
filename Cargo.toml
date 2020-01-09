@@ -1,6 +1,6 @@
 [workspace]
 
 members = [
-  "plugin-sample",
+  "plugin-brige",
   "reconciliation",
 ]

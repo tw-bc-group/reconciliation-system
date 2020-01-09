@@ -15,6 +15,7 @@ macro_rules! plugin_load {
 
         crate::plugin::dylib_list($dir).map(|dylib_list| {
             dylib_list.into_iter().fold(Vec::new(), |mut acc, dylib| {
+                // https://github.com/nagisa/rust_libloading/issues/41
                 #[cfg(target_os = "linux")]
                 let load_res = libloading::os::unix::Library::open(Some(&dylib), 0x2 | 0x1000);
                 #[cfg(not(target_os = "linux"))]
@@ -44,9 +45,10 @@ macro_rules! plugin_load {
 mod flush;
 
 pub mod prelude {
+    pub use crate::entity::prelude::*;
+
     pub use super::flush::*;
     pub use anyhow::Result;
-    pub use serde::Deserialize;
     pub use serde_json::{json, Value};
 }
 
