@@ -3,6 +3,13 @@
 ## 环境准备
 - rust 1.40.0
 
+## 代码结构
+1. 首先需要理解 Rust 中的 mod 和 crate，参考文章:
+- [箱和模块](https://doc.yonyoucloud.com/doc/wiki/project/rust/creates-and-modules.html)
+2. 项目 Workspace 分为两个 crate：reconciliation 和 plugin
+3. reconciliation 中有多个 mod：
+- loader：负责从数据源获取原始数据
+
 ## 相关命令
 build:
 ```
