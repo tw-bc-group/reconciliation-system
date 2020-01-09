@@ -11,6 +11,14 @@ pipeline {
                 sh "cargo build --release"
             }
         }
+        stage("Move libplugin_sample.so file to test folder") {
+            fileOperations([fileCopyOperation(
+                    excludes: '',
+                    flattenFiles: false,
+                    includes: "/var/lib/jenkins/workspace/reconciliation-system/target/debug/libplugin_sample.so",
+                    targetLocation: "/var/lib/jenkins/workspace/reconciliation-system/reconciliation/tests/plugin/"
+            )])
+        }
         stage('Test') {
             steps {
                 sh "cargo test"
@@ -32,9 +40,9 @@ pipeline {
                 sh "cargo doc"
                 // We run a python `SimpleHTTPServer` against
                 // /var/lib/jenkins/jobs/<repo>/branches/master/javadoc to display our docs
-                step([$class: 'JavadocArchiver',
+                step([$class    : 'JavadocArchiver',
                       javadocDir: 'target/doc',
-                      keepAll: false])
+                      keepAll   : false])
             }
         }
     }
