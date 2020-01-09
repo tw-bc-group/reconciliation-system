@@ -1,6 +1,6 @@
 table! {
     posts (id) {
-        id -> Unsigned<Bigint>,
+        id -> Integer,
         title -> Varchar,
         body -> Text,
         published -> Bool,
