@@ -8,12 +8,12 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh "cargo build --release"
+                sh "cargo build"
             }
         }
         stage("Move libplugin_sample.so file to test folder") {
             steps {
-                sh "mv /var/lib/jenkins/workspace/reconciliation-system/target/release/libplugin_sample.so /var/lib/jenkins/workspace/reconciliation-system/reconciliation/tests/plugin/"
+                sh "mv /var/lib/jenkins/workspace/reconciliation-system/target/debug/libplugin_sample.so /var/lib/jenkins/workspace/reconciliation-system/reconciliation/tests/plugin/"
             }
         }
         stage('Test') {
