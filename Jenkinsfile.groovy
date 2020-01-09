@@ -12,12 +12,14 @@ pipeline {
             }
         }
         stage("Move libplugin_sample.so file to test folder") {
-            fileOperations([fileCopyOperation(
-                    excludes: '',
-                    flattenFiles: false,
-                    includes: "/var/lib/jenkins/workspace/reconciliation-system/target/debug/libplugin_sample.so",
-                    targetLocation: "/var/lib/jenkins/workspace/reconciliation-system/reconciliation/tests/plugin/"
-            )])
+            steps {
+                fileOperations([fileCopyOperation(
+                        excludes: '',
+                        flattenFiles: false,
+                        includes: "/var/lib/jenkins/workspace/reconciliation-system/target/debug/libplugin_sample.so",
+                        targetLocation: "/var/lib/jenkins/workspace/reconciliation-system/reconciliation/tests/plugin/"
+                )])
+            }
         }
         stage('Test') {
             steps {
