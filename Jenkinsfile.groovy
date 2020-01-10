@@ -27,15 +27,5 @@ pipeline {
                 sh "rustup component add rustfmt --toolchain 1.40.0-x86_64-unknown-linux-gnu; cargo fmt --all"
             }
         }
-        stage('Doc') {
-            steps {
-                sh "cargo doc"
-                // We run a python `SimpleHTTPServer` against
-                // /var/lib/jenkins/jobs/<repo>/branches/master/javadoc to display our docs
-                step([$class    : 'JavadocArchiver',
-                      javadocDir: 'target/doc',
-                      keepAll   : false])
-            }
-        }
     }
 }
