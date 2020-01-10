@@ -23,7 +23,7 @@ impl Flush for BrigePlugin {
     fn flush(&self, json: Value) -> Result<Vec<FlushData>> {
         serde_json::from_value::<Brige>(json)
             .map_err(Into::into)
-            .and_then(|cactus| cactus.try_into())
+            .and_then(|brige| brige.try_into())
     }
 }
 
