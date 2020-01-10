@@ -1,12 +1,11 @@
 extern crate diesel;
 
 use diesel::prelude::*;
-
-use reconciliation::loader::mysql_loader::establish_connection;
-use reconciliation::loader::mysql_loader::models::Post;
-use reconciliation::loader::mysql_loader::schema::posts::dsl::*;
+use reconciliation::establish_connection;
+use reconciliation::models::Post;
 
 fn main() {
+    use reconciliation::schema::posts::dsl::*;
     let connection = establish_connection();
     let results = posts
         .filter(published.eq(true))
