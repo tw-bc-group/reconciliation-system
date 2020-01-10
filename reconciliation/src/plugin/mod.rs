@@ -9,7 +9,7 @@ use anyhow::Result;
 #[macro_export]
 macro_rules! plugin_load {
     ($dir:expr, $name:expr, $probe:path) => {{
-        use libloading::Symbol;
+        use libloading::{Library, Symbol};
 
         type ProbePlugin = unsafe extern "C" fn() -> Box<dyn $probe>;
 
