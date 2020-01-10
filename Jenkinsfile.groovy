@@ -1,10 +1,14 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'rust:latest'
+        }
+    }
 
     stages {
         stage('Build') {
             steps {
-                sh "/home/ubuntu/.cargo/bin/cargo +stable build"
+                sh "cargo build"
             }
         }
         stage("Move libplugin_sample.so file to test folder") {
@@ -14,23 +18,23 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh "/home/ubuntu/.cargo/bin/cargo +stable test"
+                sh "cargo test"
             }
         }
         stage('Clippy') {
             steps {
-                sh "/home/ubuntu/.cargo/bin/cargo +nightly clippy --all"
+                sh "cargo +nightly clippy --all"
             }
         }
         stage('Rustfmt') {
             steps {
                 // The build will fail if rustfmt thinks any changes are required.
-                sh "/home/ubuntu/.cargo/bin/cargo +nightly fmt --all"
+                sh "cargo +nightly fmt --all"
             }
         }
         stage('Doc') {
             steps {
-                sh "/home/ubuntu/.cargo/bin/cargo doc"
+                sh "cargo doc"
                 // We run a python `SimpleHTTPServer` against
                 // /var/lib/jenkins/jobs/<repo>/branches/master/javadoc to display our docs
                 step([$class    : 'JavadocArchiver',
