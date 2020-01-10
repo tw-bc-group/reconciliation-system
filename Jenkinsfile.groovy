@@ -18,13 +18,13 @@ pipeline {
         }
         stage('Clippy') {
             steps {
-                sh "cargo +nightly clippy --all"
+                sh "cargo clippy --all"
             }
         }
         stage('Rustfmt') {
             steps {
                 // The build will fail if rustfmt thinks any changes are required.
-                sh "cargo +nightly fmt --all"
+                sh "cargo fmt --all"
             }
         }
         stage('Doc') {
