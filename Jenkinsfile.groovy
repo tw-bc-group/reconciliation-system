@@ -11,11 +11,6 @@ pipeline {
                 sh "cargo build"
             }
         }
-        stage("Move libplugin_sample.so file to test folder") {
-            steps {
-                sh "mv /var/lib/jenkins/workspace/reconciliation-system/target/debug/libplugin_sample.so /var/lib/jenkins/workspace/reconciliation-system/reconciliation/tests/plugin/"
-            }
-        }
         stage('Test') {
             steps {
                 sh "cargo test"
