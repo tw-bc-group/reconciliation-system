@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh "/home/ubuntu/.cargo/bin/cargo build"
+                sh "/home/ubuntu/.cargo/bin/cargo +stable build"
             }
         }
         stage("Move libplugin_sample.so file to test folder") {
@@ -14,7 +14,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh "/home/ubuntu/.cargo/bin/cargo test"
+                sh "/home/ubuntu/.cargo/bin/cargo +stable test"
             }
         }
         stage('Clippy') {
