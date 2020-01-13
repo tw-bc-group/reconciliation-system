@@ -5,5 +5,7 @@ extern crate serde;
 
 #[macro_use]
 pub mod macros;
+pub mod core;
 pub mod entity;
+pub mod loader;
 pub mod plugin;
