@@ -11,6 +11,5 @@ pub fn test_core() {
     let start = Utc::now().timestamp_millis();
     let mut core = Core::new(FileLoader::new(mock_data_path), plugin_path);
     let res = core.run(start, start).unwrap();
-    //assert_eq!(res.get("bridge_and_account").unwrap().len(), 3);
-    assert_eq!(res.get("bridge_and_account").unwrap().len(), 7);
+    assert_eq!(res.get("bridge_and_account").unwrap().len(), 4);
 }

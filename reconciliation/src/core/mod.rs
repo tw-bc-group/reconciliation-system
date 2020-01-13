@@ -34,7 +34,11 @@ where
     {
         d.into_par_iter()
             .flat_map(|v| f.flush(v))
-            .flat_map(|v| v)
+            .flat_map(|array| array)
+            .map(|mut flush_data| {
+                flush_data.name = f.name().to_string();
+                flush_data
+            })
             .collect::<HashSet<FlushData>>()
     }
 
@@ -55,7 +59,11 @@ where
         }
     }
 
-    pub fn run(&mut self, start: i64, end: i64) -> Result<HashMap<&'static str, Vec<FlushData>>> {
+    pub fn run(
+        &mut self,
+        start: i64,
+        end: i64,
+    ) -> Result<HashMap<&'static str, Vec<StatementResult>>> {
         let mut res = HashMap::new();
         for plugin in &self.plugins {
             let set = self
@@ -73,8 +81,24 @@ where
             assert_eq!(group.len(), 2);
             let diff = group[0]
                 .symmetric_difference(&group[1])
-                .map(ToOwned::to_owned)
-                .collect::<Vec<FlushData>>();
+                .fold(HashMap::new(), |mut acc, data| {
+                    acc.entry(data.id()).or_insert_with(Vec::new).push(data);
+                    acc
+                })
+                .par_iter()
+                .map(|(_, data)| match data.len() {
+                    1 => StatementResult::OneSide(data[0].into()),
+                    2 => {
+                        let mismatches = data[0].compare(data[1]);
+                        StatementResult::DataMismatch(
+                            data.iter().map(|v| (*v).into()).collect(),
+                            mismatches,
+                        )
+                    }
+                    _ => unreachable!(),
+                })
+                .collect::<Vec<StatementResult>>();
+
             res.insert(*group_name, diff);
         }
         self.groups.clear();

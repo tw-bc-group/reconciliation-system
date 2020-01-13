@@ -6,9 +6,9 @@ use std::{
 use super::amount::*;
 use serde_json::Value;
 
-#[derive(Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize)]
 #[serde(rename_all = "lowercase")]
-pub enum Mismatch {
+pub enum FlushDataMismatch {
     Amount,
     Address,
     Currency,
@@ -31,6 +31,9 @@ impl Default for Direction {
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct FlushData {
+    #[serde(default)]
+    #[serde(skip_serializing)]
+    pub name: String,
     pub tx_id: String,
     pub amount: Amount,
     pub address: String,
@@ -40,26 +43,29 @@ pub struct FlushData {
 }
 
 impl FlushData {
-    pub fn diff(&self, other: &FlushData) -> Vec<Mismatch> {
-        let mut mismatch = Vec::new();
+    pub fn id(&self) -> String {
+        format!("{}|{}", self.tx_id, self.address)
+    }
+    pub fn compare(&self, other: &FlushData) -> Vec<FlushDataMismatch> {
+        let mut mismatches = Vec::new();
 
         if self.amount != other.amount {
-            mismatch.push(Mismatch::Amount);
+            mismatches.push(FlushDataMismatch::Amount);
         }
 
         if self.address != other.address {
-            mismatch.push(Mismatch::Address);
+            mismatches.push(FlushDataMismatch::Address);
         }
 
         if self.currency != other.currency {
-            mismatch.push(Mismatch::Currency);
+            mismatches.push(FlushDataMismatch::Currency);
         }
 
         if self.direction != other.direction {
-            mismatch.push(Mismatch::Direction);
+            mismatches.push(FlushDataMismatch::Direction);
         }
 
-        mismatch
+        mismatches
     }
 }
 
