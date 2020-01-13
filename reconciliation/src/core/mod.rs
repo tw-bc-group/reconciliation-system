@@ -2,6 +2,7 @@ use std::{
     collections::{HashMap, HashSet},
     io::{BufReader, Read},
     marker::PhantomData,
+    path::Path,
 };
 
 use crate::{loader::Loader, plugin::prelude::*};
@@ -37,14 +38,16 @@ where
             .collect::<HashSet<FlushData>>()
     }
 
-    pub fn new(loader: L, plugins: Vec<Box<dyn Flush>>) -> Self {
+    pub fn new<P: AsRef<Path>>(loader: L, plugin_path: P) -> Self {
+        let plugins = load_plugins(plugin_path).expect("failed to load plugins.");
+
         Core {
             _phantom: PhantomData,
             loader,
             groups: plugins.iter().fold(
                 HashMap::with_capacity(plugins.len()),
                 |mut acc, plugin| {
-                    acc.insert(plugin.name(), Vec::with_capacity(2));
+                    acc.insert(plugin.group(), Vec::with_capacity(2));
                     acc
                 },
             ),
@@ -52,7 +55,8 @@ where
         }
     }
 
-    pub fn run(&mut self, start: i64, end: i64) -> Result<()> {
+    pub fn run(&mut self, start: i64, end: i64) -> Result<HashMap<&'static str, Vec<FlushData>>> {
+        let mut res = HashMap::new();
         for plugin in &self.plugins {
             let set = self
                 .load_raw_data(plugin.name(), start, end)
@@ -64,15 +68,16 @@ where
                 .push(set);
         }
 
-        for (name, group) in &self.groups {
+        //TODO: remove to_owned
+        for (group_name, group) in &self.groups {
             assert_eq!(group.len(), 2);
-            info!("start reconciliation at group : {}", name);
             let diff = group[0]
                 .symmetric_difference(&group[1])
-                .collect::<Vec<&FlushData>>();
-            debug!("group {}'s diff: {:?}", name, diff)
+                .map(ToOwned::to_owned)
+                .collect::<Vec<FlushData>>();
+            res.insert(*group_name, diff);
         }
         self.groups.clear();
-        Ok(())
+        Ok(res)
     }
 }

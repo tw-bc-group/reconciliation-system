@@ -9,6 +9,7 @@ edition = "2018"
 [dependencies]
 anyhow = "1.0"
 cfg-if = "0.1"
+chrono = "0.4"
 libloading = "0.5"
 log = "0.4"
 num-bigint = { version = "0.2", features = ["serde"] }

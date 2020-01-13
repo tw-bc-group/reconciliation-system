@@ -6,7 +6,16 @@ use std::{
 use super::amount::*;
 use serde_json::Value;
 
-#[derive(Debug, Deserialize, Eq, Hash, PartialEq, Serialize)]
+#[derive(Deserialize, Serialize)]
+#[serde(rename_all = "lowercase")]
+pub enum Mismatch {
+    Amount,
+    Address,
+    Currency,
+    Direction,
+}
+
+#[derive(Clone, Copy, Debug, Deserialize, Eq, Hash, PartialEq, Serialize)]
 #[serde(rename_all = "lowercase")]
 pub enum Direction {
     In,
@@ -20,7 +29,7 @@ impl Default for Direction {
     }
 }
 
-#[derive(Debug, Default, Deserialize, Serialize)]
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct FlushData {
     pub tx_id: String,
     pub amount: Amount,
@@ -28,6 +37,30 @@ pub struct FlushData {
     pub currency: String,
     pub direction: Direction,
     pub raw_data: Option<Value>,
+}
+
+impl FlushData {
+    pub fn diff(&self, other: &FlushData) -> Vec<Mismatch> {
+        let mut mismatch = Vec::new();
+
+        if self.amount != other.amount {
+            mismatch.push(Mismatch::Amount);
+        }
+
+        if self.address != other.address {
+            mismatch.push(Mismatch::Address);
+        }
+
+        if self.currency != other.currency {
+            mismatch.push(Mismatch::Currency);
+        }
+
+        if self.direction != other.direction {
+            mismatch.push(Mismatch::Direction);
+        }
+
+        mismatch
+    }
 }
 
 impl Eq for FlushData {}

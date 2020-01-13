@@ -1,5 +1,9 @@
 mod file;
 
+pub mod prelude {
+    pub use super::file::*;
+}
+
 use std::io::Read;
 
 use anyhow::Result;

@@ -6,7 +6,7 @@ mod bridge;
 use std::convert::TryInto;
 
 use crate::bridge::*;
-use reconciliation::{declare_flush_plugin, plugin::prelude::*};
+use reconciliation::prelude::*;
 
 #[derive(Default)]
 struct BridgePlugin;
@@ -17,7 +17,7 @@ impl Flush for BridgePlugin {
     }
 
     fn group(&self) -> &'static str {
-        "bridge_and_revenue"
+        "bridge_and_account"
     }
 
     fn flush(&self, json: Value) -> Result<Vec<FlushData>> {

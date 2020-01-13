@@ -3,7 +3,7 @@ use std::str::FromStr;
 use num_bigint::{BigInt, ParseBigIntError};
 use num_traits::identities::Zero;
 
-#[derive(Debug, Deserialize, Eq, Hash, PartialEq, Serialize)]
+#[derive(Clone, Debug, Deserialize, Eq, Hash, PartialEq, Serialize)]
 #[serde(transparent)]
 pub struct Amount {
     inner: BigInt,
