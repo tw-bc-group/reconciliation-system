@@ -1,30 +1,30 @@
 #[macro_use]
 extern crate serde;
 
-mod brige;
+mod bridge;
 
 use std::convert::TryInto;
 
-use crate::brige::*;
+use crate::bridge::*;
 use reconciliation::{declare_flush_plugin, plugin::prelude::*};
 
 #[derive(Default)]
-struct BrigePlugin;
+struct BridgePlugin;
 
-impl Flush for BrigePlugin {
+impl Flush for BridgePlugin {
     fn name(&self) -> &'static str {
-        "brige"
+        "bridge"
     }
 
     fn group(&self) -> &'static str {
-        "brige_and_revenue"
+        "bridge_and_revenue"
     }
 
     fn flush(&self, json: Value) -> Result<Vec<FlushData>> {
-        serde_json::from_value::<Brige>(json)
+        serde_json::from_value::<Bridge>(json)
             .map_err(Into::into)
-            .and_then(|brige| brige.try_into())
+            .and_then(|bridge| bridge.try_into())
     }
 }
 
-declare_flush_plugin!(BrigePlugin::default);
+declare_flush_plugin!(BridgePlugin::default);

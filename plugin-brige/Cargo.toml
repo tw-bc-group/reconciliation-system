@@ -1,5 +1,5 @@
 [package]
-name = "plugin-sample"
+name = "plugin-bridge"
 version = "0.1.0"
 authors = ["cheng zhang <cheng.zhang@thoughtworks.com>"]
 edition = "2018"

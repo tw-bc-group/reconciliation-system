@@ -8,7 +8,7 @@ fn test_flush_plugin() {
     let plugins = load_plugins(Path::new("tests").join("plugin")).unwrap();
     assert_eq!(plugins.len(), 1);
 
-    let file = File::open(Path::new("tests").join("brige.json")).unwrap();
+    let file = File::open(Path::new("tests").join("bridge.json")).unwrap();
     let buf_reader = BufReader::new(file);
     let brige_data: Vec<Value> = serde_json::from_reader(buf_reader).unwrap();
     assert_eq!(brige_data.len(), 11);

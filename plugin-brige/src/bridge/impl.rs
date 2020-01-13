@@ -5,35 +5,35 @@ use super::*;
 use anyhow::Error;
 use reconciliation::plugin::prelude::*;
 
-fn brige_in_tx_id(tx_id: &str, position: i32) -> String {
+fn bridge_in_tx_id(tx_id: &str, position: i32) -> String {
     format!(
         "{:x}",
         md5::compute(format!("{}-{}", tx_id, position).as_bytes())
     )
 }
 
-impl TryFrom<Brige> for Vec<FlushData> {
+impl TryFrom<Bridge> for Vec<FlushData> {
     type Error = Error;
 
-    fn try_from(brige: Brige) -> Result<Vec<FlushData>> {
+    fn try_from(bridge: Bridge) -> Result<Vec<FlushData>> {
         let mut res = Vec::new();
-        match brige {
-            Brige::In(brige_in) => {
-                let tx_id = brige_in.tx_id;
-                for v in brige_in.vout {
+        match bridge {
+            Bridge::In(bridge_in) => {
+                let tx_id = bridge_in.tx_id;
+                for v in bridge_in.vout {
                     res.push(FlushData {
-                        tx_id: brige_in_tx_id(&tx_id, v.position),
+                        tx_id: bridge_in_tx_id(&tx_id, v.position),
                         amount: Amount::from_str(&v.amount)?,
                         address: v.address,
-                        currency: brige_in.coin_type.clone(),
+                        currency: bridge_in.coin_type.clone(),
                         direction: Direction::In,
                         ..Default::default()
                     })
                 }
             }
-            Brige::Out(brige_out) => {
-                let tx_id = brige_out.tx_id;
-                for mut transaction in brige_out.transactions {
+            Bridge::Out(bridge_out) => {
+                let tx_id = bridge_out.tx_id;
+                for mut transaction in bridge_out.transactions {
                     assert_eq!(transaction.vout.len(), 1);
                     let vout = transaction.vout.pop().unwrap();
                     res.push(FlushData {
