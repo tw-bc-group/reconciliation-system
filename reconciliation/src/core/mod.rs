@@ -63,6 +63,15 @@ where
                 .or_insert_with(Vec::new)
                 .push(set);
         }
+
+        for (name, group) in &self.groups {
+            assert_eq!(group.len(), 2);
+            info!("start reconciliation at group : {}", name);
+            let diff = group[0]
+                .symmetric_difference(&group[1])
+                .collect::<Vec<&FlushData>>();
+            debug!("group {}'s diff: {:?}", name, diff)
+        }
         self.groups.clear();
         Ok(())
     }
