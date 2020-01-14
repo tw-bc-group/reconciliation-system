@@ -42,10 +42,8 @@ where
         })
     }
 
-    pub fn new<P: AsRef<Path>>(loader: L, plugin_path: P) -> Self {
-        let plugins = load_plugins(plugin_path).expect("failed to load plugins.");
-
-        System {
+    pub fn init<P: AsRef<Path>>(loader: L, plugin_path: P) -> Result<Self> {
+        load_plugins(plugin_path).map(|plugins| System {
             _phantom: PhantomData,
             loader,
             groups: plugins.iter().fold(
@@ -58,7 +56,7 @@ where
                 },
             ),
             plugins,
-        }
+        })
     }
 
     pub fn run(
