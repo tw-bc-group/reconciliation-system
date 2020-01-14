@@ -9,14 +9,14 @@ use std::{
 use crate::{loader::Loader, plugin::prelude::*};
 use rayon::prelude::*;
 
-pub struct Core<R: Read, L: Loader<R>> {
+pub struct System<R: Read, L: Loader<R>> {
     _phantom: PhantomData<R>,
     loader: L,
     plugins: Vec<Box<dyn Flush>>,
     groups: HashMap<&'static str, Vec<Arc<HashSet<FlushData>>>>,
 }
 
-impl<R, L> Core<R, L>
+impl<R, L> System<R, L>
 where
     R: Read,
     L: Loader<R>,
@@ -45,7 +45,7 @@ where
     pub fn new<P: AsRef<Path>>(loader: L, plugin_path: P) -> Self {
         let plugins = load_plugins(plugin_path).expect("failed to load plugins.");
 
-        Core {
+        System {
             _phantom: PhantomData,
             loader,
             groups: plugins.iter().fold(
