@@ -9,7 +9,7 @@ use anyhow::Result;
 #[macro_export]
 macro_rules! plugin_load {
     ($dir:expr, $name:expr, $probe:path) => {{
-        use libloading::{Library, Symbol};
+        use libloading::{Symbol};
 
         type ProbePlugin = unsafe extern "C" fn() -> Box<dyn $probe>;
 
@@ -19,7 +19,7 @@ macro_rules! plugin_load {
                 #[cfg(target_os = "linux")]
                 let load_res = libloading::os::unix::Library::open(Some(&dylib), 0x2 | 0x1000);
                 #[cfg(not(target_os = "linux"))]
-                let load_res = Library::new(&dylib);
+                let load_res = libloading::Library::new(&dylib);
 
                 let library = match load_res {
                     Ok(library) => library,
