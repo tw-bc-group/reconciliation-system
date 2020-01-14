@@ -5,10 +5,10 @@ use serde_json::Value;
 
 #[test]
 fn test_flush_plugin() {
-    let flush_path = Path::new("tests").join("flush");
+    let plugin_path = Path::new("tests").join("plugin");
     let mock_data_path = Path::new("tests").join("mock_data");
 
-    let plugins = load_plugins(flush_path.join("plugin")).unwrap();
+    let plugins = load_plugins(plugin_path).unwrap();
     assert_eq!(plugins.len(), 2);
 
     for plugin in plugins {

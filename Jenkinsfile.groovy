@@ -23,7 +23,7 @@ pipeline {
         }
         stage("Move plugins to test folder") {
             steps {
-                sh "cp /var/lib/jenkins/workspace/reconciliation-system/target/debug/*.so /var/lib/jenkins/workspace/reconciliation-system/reconciliation/tests/flush/plugin/"
+                sh "cp /var/lib/jenkins/workspace/reconciliation-system/target/debug/*.so /var/lib/jenkins/workspace/reconciliation-system/reconciliation/tests/plugin/"
             }
         }
         stage('Test') {

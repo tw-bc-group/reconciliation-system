@@ -6,7 +6,7 @@ use reconciliation::prelude::*;
 #[test]
 pub fn test_core() {
     let mock_data_path = Path::new("tests").join("mock_data");
-    let plugin_path = Path::new("tests").join("flush").join("plugin");
+    let plugin_path = Path::new("tests").join("plugin");
 
     let start = Utc::now().timestamp_millis();
     let mut core = System::init(FileLoader::new(mock_data_path), plugin_path).unwrap();
