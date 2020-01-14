@@ -11,6 +11,11 @@ pipeline {
                 sh "rustup component add rustfmt --toolchain 1.40.0-x86_64-unknown-linux-gnu; cargo fmt --all"
             }
         }
+        stage('Clippy') {
+            steps {
+                sh "rustup component add clippy --toolchain 1.40.0-x86_64-unknown-linux-gnu; cargo clippy --all"
+            }
+        }
         stage('Build') {
             steps {
                 sh "cargo build"
@@ -24,11 +29,6 @@ pipeline {
         stage('Test') {
             steps {
                 sh "cargo test"
-            }
-        }
-        stage('Clippy') {
-            steps {
-                sh "rustup component add clippy --toolchain 1.40.0-x86_64-unknown-linux-gnu; cargo clippy --all"
             }
         }
     }
