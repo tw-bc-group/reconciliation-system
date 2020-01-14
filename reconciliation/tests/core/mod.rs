@@ -12,4 +12,7 @@ pub fn test_core() {
     let mut core = Core::new(FileLoader::new(mock_data_path), plugin_path);
     let res = core.run(start, start).unwrap();
     assert_eq!(res.get("bridge_and_account").unwrap().len(), 4);
+    //    for record in res.get("bridge_and_account").unwrap() {
+    //        println!("record: {:?}\n", record);
+    //    }
 }

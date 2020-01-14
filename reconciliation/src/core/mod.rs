@@ -21,26 +21,25 @@ where
     R: Read,
     L: Loader<R>,
 {
-    //TODO: load json as stream ?
-    fn load_raw_data(&self, name: &str, start: i64, end: i64) -> Result<Vec<Value>> {
-        self.loader
-            .get(name, start, end)
-            .map(BufReader::new)
-            .and_then(|buf_reader| serde_json::from_reader(buf_reader).map_err(Into::into))
-    }
-
-    fn flush_data<D>(d: D, f: &dyn Flush) -> HashSet<FlushData>
-    where
-        D: IntoParallelIterator<Item = Value>,
-    {
-        d.into_par_iter()
-            .flat_map(|v| f.flush(v))
-            .flat_map(|array| array)
-            .map(|mut flush_data| {
-                flush_data.name = f.name().to_string();
-                flush_data
-            })
-            .collect::<HashSet<FlushData>>()
+    fn load_and_flush_data(
+        &self,
+        name: &str,
+        start: i64,
+        end: i64,
+        f: &dyn Flush,
+    ) -> Result<HashSet<FlushData>> {
+        self.loader.get(name, start, end).map(|reader| {
+            serde_json::Deserializer::from_reader(BufReader::new(reader))
+                .into_iter::<Value>()
+                .flat_map(|res| -> Result<_> { Ok(res?) })
+                .flat_map(|v| f.flush(v))
+                .flatten()
+                .map(|mut flush_data| {
+                    flush_data.name = f.name().to_string();
+                    flush_data
+                })
+                .collect::<HashSet<FlushData>>()
+        })
     }
 
     pub fn new<P: AsRef<Path>>(loader: L, plugin_path: P) -> Self {
@@ -70,8 +69,7 @@ where
         let mut res = HashMap::new();
         for plugin in &self.plugins {
             let set = self
-                .load_raw_data(plugin.name(), start, end)
-                .map(|data| Self::flush_data(data, plugin.as_ref()))
+                .load_and_flush_data(plugin.name(), start, end, plugin.as_ref())
                 .map(Arc::new)?;
 
             for group in plugin.groups() {
@@ -82,7 +80,6 @@ where
             }
         }
 
-        //TODO: remove to_owned
         for (group_name, group) in &self.groups {
             assert_eq!(group.len(), 2);
             let diff = group[0]

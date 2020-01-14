@@ -1,4 +1,4 @@
-[{
+{
 	"coinType" : "ETC",
 	"orderId" : "PGW1e4a116c-accf-462e-9c85-4388a0e93620",
 	"status" : "FINISHED",
@@ -24,7 +24,7 @@
 			"blockHeight" : 316751
 		}
 	]
-},
+}
 {
 	"coinType" : "DCR",
 	"orderId" : "PGW14f13cd3-4ff4-48d4-9d90-cac06a7a0458",
@@ -51,7 +51,7 @@
 			"tip" : "5040"
 		}
 	]
-},
+}
 {
 	"coinType" : "ETH",
 	"orderId" : "PGWf6d33548-ba80-419f-a584-a41f49089d0f",
@@ -78,7 +78,7 @@
 			]
 		}
 	]
-},
+}
 {
 	"coinType" : "ZEC",
 	"orderId" : "PGW1c6fb79e-777a-4c13-9eb9-c3a68a2fcfdb",
@@ -105,7 +105,7 @@
 			"amount" : "100000"
 		}
 	]
-},
+}
 {
 	"amount" : "1000000",
 	"blockTime" : 1576454400000,
@@ -121,7 +121,7 @@
 			"amount" : "1000000"
 		}
 	]
-},
+}
 {
 	"amount" : "1000000000",
 	"blockTime" : 1576454400000,
@@ -137,7 +137,7 @@
 			"position" : 0
 		}
 	]
-},
+}
 {
 	"coinType" : "USDC",
 	"orderId" : "PGW9d46c6f1-02d9-419a-bfb5-3a263867e982",
@@ -164,7 +164,7 @@
 			]
 		}
 	]
-},
+}
 {
 	"amount" : "2000000",
 	"blockTime" : 1576454400000,
@@ -180,7 +180,7 @@
 			"amount" : "2000000"
 		}
 	]
-},
+}
 {
 	"amount" : "30000000",
 	"blockTime" : 1576454400000,
@@ -201,7 +201,7 @@
 			"amount" : "20000000"
 		}
 	]
-},
+}
 {
 	"coinType" : "LTC",
 	"orderId" : "PGWb66fc67a-a7cb-4fdd-a60d-d3533f007d72",
@@ -228,7 +228,7 @@
 			"accountBalance" : "6990647"
 		}
 	]
-},
+}
 {
 	"amount" : "10000000",
 	"blockTime" : 1576454400000,
@@ -244,4 +244,4 @@
 			"position" : 0
 		}
 	]
-}]
+}

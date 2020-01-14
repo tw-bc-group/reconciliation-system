@@ -1,3 +1,5 @@
+#![type_length_limit = "1241512"]
+
 #[macro_use]
 extern crate log;
 #[macro_use]

@@ -14,7 +14,10 @@ fn test_flush_plugin() {
     for plugin in plugins {
         let file = File::open(mock_data_path.join(plugin.name()).with_extension("json")).unwrap();
         let buf_reader = BufReader::new(file);
-        let raw_data: Vec<Value> = serde_json::from_reader(buf_reader).unwrap();
+        let stream = serde_json::Deserializer::from_reader(buf_reader).into_iter::<Value>();
+        let raw_data = stream
+            .flat_map(|res| -> Result<_, serde_json::Error> { Ok(res?) })
+            .collect::<Vec<Value>>();
 
         let flush_data = raw_data
             .clone()
