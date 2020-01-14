@@ -16,8 +16,8 @@ impl Flush for BridgePlugin {
         "bridge"
     }
 
-    fn group(&self) -> &'static str {
-        "bridge_and_account"
+    fn groups(&self) -> Vec<&'static str> {
+        vec!["bridge_and_account"]
     }
 
     fn flush(&self, json: Value) -> Result<Vec<FlushData>> {

@@ -9,7 +9,7 @@ pub const PROBE_PLUGIN_FUNCTION: &str = "probe_plugin";
 
 pub trait Flush: Send + Sync {
     fn name(&self) -> &'static str;
-    fn group(&self) -> &'static str;
+    fn groups(&self) -> Vec<&'static str>;
     fn flush(&self, json: Value) -> Result<Vec<FlushData>>;
 }
 

@@ -3,6 +3,7 @@ use std::{
     io::{BufReader, Read},
     marker::PhantomData,
     path::Path,
+    sync::Arc,
 };
 
 use crate::{loader::Loader, plugin::prelude::*};
@@ -12,7 +13,7 @@ pub struct Core<R: Read, L: Loader<R>> {
     _phantom: PhantomData<R>,
     loader: L,
     plugins: Vec<Box<dyn Flush>>,
-    groups: HashMap<&'static str, Vec<HashSet<FlushData>>>,
+    groups: HashMap<&'static str, Vec<Arc<HashSet<FlushData>>>>,
 }
 
 impl<R, L> Core<R, L>
@@ -51,7 +52,9 @@ where
             groups: plugins.iter().fold(
                 HashMap::with_capacity(plugins.len()),
                 |mut acc, plugin| {
-                    acc.insert(plugin.group(), Vec::with_capacity(2));
+                    for group in plugin.groups() {
+                        acc.insert(group, Vec::with_capacity(2));
+                    }
                     acc
                 },
             ),
@@ -68,12 +71,15 @@ where
         for plugin in &self.plugins {
             let set = self
                 .load_raw_data(plugin.name(), start, end)
-                .map(|data| Self::flush_data(data, plugin.as_ref()))?;
+                .map(|data| Self::flush_data(data, plugin.as_ref()))
+                .map(Arc::new)?;
 
-            self.groups
-                .entry(plugin.group())
-                .or_insert_with(Vec::new)
-                .push(set);
+            for group in plugin.groups() {
+                self.groups
+                    .entry(group)
+                    .or_insert_with(Vec::new)
+                    .push(set.clone());
+            }
         }
 
         //TODO: remove to_owned
