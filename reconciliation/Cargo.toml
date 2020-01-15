@@ -12,6 +12,7 @@ actix-web = "2.0"
 anyhow = "1.0"
 cfg-if = "0.1"
 chrono = "0.4"
+env_logger = "0.7"
 libloading = "0.5"
 log = "0.4"
 num-bigint = { version = "0.2", features = ["serde"] }

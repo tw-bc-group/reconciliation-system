@@ -10,6 +10,7 @@ pub struct StatementOneResult {
 #[serde(rename_all = "snake_case")]
 pub enum StatementResult {
     OneSide(StatementOneResult),
+    //bridge and payment
     DataMismatch(Vec<StatementOneResult>, Vec<FlushDataMismatch>),
 }
 

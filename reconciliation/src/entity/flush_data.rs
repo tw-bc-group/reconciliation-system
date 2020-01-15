@@ -10,7 +10,6 @@ use serde_json::Value;
 #[serde(rename_all = "lowercase")]
 pub enum FlushDataMismatch {
     Amount,
-    Address,
     Currency,
     Direction,
 }
@@ -51,10 +50,6 @@ impl FlushData {
 
         if self.amount != other.amount {
             mismatches.push(FlushDataMismatch::Amount);
-        }
-
-        if self.address != other.address {
-            mismatches.push(FlushDataMismatch::Address);
         }
 
         if self.currency != other.currency {

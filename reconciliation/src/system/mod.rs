@@ -9,17 +9,16 @@ use std::{
 use crate::{loader::Loader, plugin::prelude::*};
 use rayon::prelude::*;
 
-pub struct System<R: Read, L: Loader<R>> {
+pub struct System<R: Read, L: Loader<R> + Sync> {
     _phantom: PhantomData<R>,
     loader: L,
     plugins: Vec<Box<dyn Flush>>,
-    groups: HashMap<&'static str, Vec<Arc<HashSet<FlushData>>>>,
 }
 
 impl<R, L> System<R, L>
 where
     R: Read,
-    L: Loader<R>,
+    L: Loader<R> + Sync,
 {
     fn load_and_flush_data(
         &self,
@@ -46,39 +45,32 @@ where
         load_plugins(plugin_path).map(|plugins| System {
             _phantom: PhantomData,
             loader,
-            groups: plugins.iter().fold(
-                HashMap::with_capacity(plugins.len()),
-                |mut acc, plugin| {
-                    for group in plugin.groups() {
-                        acc.insert(group, Vec::with_capacity(2));
-                    }
-                    acc
-                },
-            ),
             plugins,
         })
     }
 
     pub fn process(
-        &mut self,
+        &self,
         start: i64,
         end: i64,
     ) -> Result<HashMap<&'static str, Vec<StatementResult>>> {
         let mut res = HashMap::new();
+        let mut groups = HashMap::new();
+
         for plugin in &self.plugins {
             let set = self
                 .load_and_flush_data(plugin.name(), start, end, plugin.as_ref())
                 .map(Arc::new)?;
 
             for group in plugin.groups() {
-                self.groups
+                groups
                     .entry(group)
                     .or_insert_with(Vec::new)
                     .push(set.clone());
             }
         }
 
-        for (group_name, group) in &self.groups {
+        for (group_name, group) in &groups {
             assert_eq!(group.len(), 2);
             let diff = group[0]
                 .symmetric_difference(&group[1])
@@ -102,7 +94,6 @@ where
 
             res.insert(*group_name, diff);
         }
-        self.groups.clear();
         Ok(res)
     }
 }
