@@ -31,14 +31,14 @@ impl Default for Direction {
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct FlushData {
-    #[serde(default)]
-    #[serde(skip_serializing)]
     pub tx_id: String,
     pub amount: Amount,
     pub address: String,
     pub currency: String,
     pub direction: Direction,
     pub raw_data: Option<Value>,
+    #[serde(default)]
+    #[serde(skip_serializing)]
     pub belongs: String,
 }
 
