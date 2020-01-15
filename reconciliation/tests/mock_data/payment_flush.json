@@ -1,0 +1,70 @@
+{
+	"address" : "t1a5Kh3DDpD3rC49NBafQCXKBMK7zmsqduE",
+	"amount" : 100000,
+	"currency" : "ZEC",
+	"serial_number" : "PGW1c6fb79e-777a-4c13-9eb9-c3a68a2fcfdb",
+	"direction" : "out"
+}
+{
+	"address" : "mg5UdWXx9ShGHv2JujMAhC5LovXZJyEYQV",
+	"amount" : 100000,
+	"currency" : "LTC",
+	"serial_number" : "PGWb66fc67a-a7cb-4fdd-a60d-d3533f007d72",
+	"direction" : "out",
+}
+{
+	"address" : "mfgLB6fC1S5o47MiLPiYXDdbUokfsnhnKz",
+	"amount" : 100000,
+	"currency" : "BCH",
+	"serial_number" : "PGW6f907413-52e7-4575-bf10-401d25a5375e",
+	"direction" : "out",
+}
+{
+	"address" : "mfye7etNaupYmxzDGHJCQ9rgKeKAsDaEHn",
+	"amount" : 100000,
+	"currency" : "BTC",
+	"serial_number" : "PGW9402455a-3053-4f20-8aac-d1de3bc47f5f",
+	"direction" : "out",
+}
+{
+	"address" : "0x3cf5e62bE986B204A53EEBe4acDc4E84Dd761FA7",
+	"amount" : 100000000,
+	"currency" : "ETC",
+	"serial_number" : "0291397f5c018c1ef0ee1401a2c60382",
+	"direction" : "in",
+}
+{
+	"address" : "0xF2Bd6Bb7B22875Ac582Ec1A718F63b532045401D",
+	"amount" : 10000,
+	"currency" : "ETC",
+	"serial_number" : "PGW1e207a25-9a41-4488-9e7e-9f3564d26239",
+	"direction" : "out",
+}
+{
+	"address" : "TsmsgTSnJsrNUVXXyRJdymHGgfN61EmkmRL",
+	"amount" : 12000000,
+	"currency" : "DCR",
+	"serial_number" : "PGW387f1c4c-b712-43f8-b896-ec52a4b7740a",
+	"direction" : "out",
+}
+{
+	"address" : "0x491c6B333cc06c0FB984dB86194A782454765445",
+	"amount" : 1000000,
+	"currency" : "ETH",
+	"serial_number" : "PGW680d9884-f8f1-43e9-97d2-797daca91593",
+	"direction" : "out",
+}
+{
+	"address" : "mjC7Gpk6iDQd3ojgWfhmWvc4fLFvgq4L3L",
+	"amount" : 6085261,
+	"currency" : "BTC",
+	"serial_number" : "cf1cfbd01c33c4503b32c92e7837fd2b",
+	"direction" : "in",
+}
+{
+	"address" : "0x491c6B333cc06c0FB984dB86194A782454765445",
+	"amount" : 10000000,
+	"currency" : "ETH",
+	"serial_number" : "PGW5eb09701-9df0-4252-b9f5-373ac59318e8",
+	"direction" : "out",
+}

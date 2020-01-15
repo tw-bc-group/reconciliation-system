@@ -1,7 +1,7 @@
 [workspace]
 
 members = [
-  "plugin-account",
+  "plugin-payment",
   "plugin-bridge",
   "reconciliation",
 ]
