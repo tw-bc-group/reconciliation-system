@@ -5,13 +5,6 @@ use super::*;
 use anyhow::Error;
 use reconciliation::plugin::prelude::*;
 
-// fn payment_in_tx_id(tx_id: &str, position: i32) -> String {
-//     format!(
-//         "{:x}",
-//         md5::compute(format!("{}-{}", tx_id, position).as_bytes())
-//     )
-// }
-
 impl TryFrom<Payment> for Vec<FlushData> {
     type Error = Error;
 

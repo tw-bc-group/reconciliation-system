@@ -3,15 +3,17 @@ extern crate serde;
 
 mod payment;
 
+use std::convert::TryInto;
+
+use crate::payment::*;
 use reconciliation::prelude::*;
-use serde_json::Value;
 
 #[derive(Default)]
 struct PaymentPlugin;
 
 impl Flush for PaymentPlugin {
     fn name(&self) -> &'static str {
-        "payment"
+        "bridge"
     }
 
     fn groups(&self) -> Vec<&'static str> {
@@ -19,9 +21,9 @@ impl Flush for PaymentPlugin {
     }
 
     fn flush(&self, json: Value) -> Result<Vec<FlushData>> {
-        serde_json::from_value::<FlushData>(json)
+        serde_json::from_value::<Payment>(json)
             .map_err(Into::into)
-            .map(|v| vec![v])
+            .and_then(|bridge| bridge.try_into())
     }
 }
 
