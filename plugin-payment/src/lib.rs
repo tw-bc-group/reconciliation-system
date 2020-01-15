@@ -1,16 +1,21 @@
+#[macro_use]
+extern crate serde;
+
+mod payment;
+
 use reconciliation::prelude::*;
 use serde_json::Value;
 
 #[derive(Default)]
-struct AccountPlugin;
+struct PaymentPlugin;
 
-impl Flush for AccountPlugin {
+impl Flush for PaymentPlugin {
     fn name(&self) -> &'static str {
-        "account"
+        "payment"
     }
 
     fn groups(&self) -> Vec<&'static str> {
-        vec!["bridge_and_account"]
+        vec!["bridge_and_payment"]
     }
 
     fn flush(&self, json: Value) -> Result<Vec<FlushData>> {
@@ -20,4 +25,4 @@ impl Flush for AccountPlugin {
     }
 }
 
-declare_flush_plugin!(AccountPlugin::default);
+declare_flush_plugin!(PaymentPlugin::default);
