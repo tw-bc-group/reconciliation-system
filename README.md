@@ -28,6 +28,7 @@ cargo test
 ## 代码规范
 - Rust下的code style
 - Rust下的工程项目、模块实践
+- 代码提交前，确保本地已经 cargo fmt, cargo clippy, cargo test 都通过
 
 ## Git使用规范
 
