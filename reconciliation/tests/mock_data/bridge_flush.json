@@ -9,7 +9,8 @@
     ],
     "address": "0xF2Bd6Bb7B22875Ac582Ec1A718F63b532045401D",
     "currency": "ETC",
-    "direction": "out"
+    "direction": "out",
+    "raw_data": null
   },
   {
     "tx_id": "PGW14f13cd3-4ff4-48d4-9d90-cac06a7a0458",
@@ -21,7 +22,8 @@
     ],
     "address": "TsmsgTSnJsrNUVXXyRJdymHGgfN61EmkmRL",
     "currency": "DCR",
-    "direction": "out"
+    "direction": "out",
+    "raw_data": null
   },
   {
     "tx_id": "PGWf6d33548-ba80-419f-a584-a41f49089d0f",
@@ -33,7 +35,8 @@
     ],
     "address": "0x1669BA62c45196F30afD56c493F9267FEDB02C7e",
     "currency": "ETH",
-    "direction": "out"
+    "direction": "out",
+    "raw_data": null
   },
   {
     "tx_id": "PGW1c6fb79e-777a-4c13-9eb9-c3a68a2fcfdb",
@@ -45,7 +48,8 @@
     ],
     "address": "t1a5Kh3DDpD3rC49NBafQCXKBMK7zmsqduE",
     "currency": "ZEC",
-    "direction": "out"
+    "direction": "out",
+    "raw_data": null
   },
   {
     "tx_id": "15d274ebeaed46964066b4b875ea2a8e",
@@ -57,7 +61,8 @@
     ],
     "address": "t1aqvGWLDV7QwMe69o8p16UmApV6sBojvn1",
     "currency": "ZEC",
-    "direction": "in"
+    "direction": "in",
+    "raw_data": null
   },
   {
     "tx_id": "4728ec5ad8938cd5f77ec73fe70135d5",
@@ -69,7 +74,8 @@
     ],
     "address": "bm1q028sgnnwkqg3cy4ea947evkmd4pday2vh9rh24",
     "currency": "BTM",
-    "direction": "in"
+    "direction": "in",
+    "raw_data": null
   },
   {
     "tx_id": "PGW9d46c6f1-02d9-419a-bfb5-3a263867e982",
@@ -81,7 +87,8 @@
     ],
     "address": "TsmsgTSnJsrNUVXXyRJdymHGgfN61EmkmRL",
     "currency": "USDC",
-    "direction": "out"
+    "direction": "out",
+    "raw_data": null
   },
   {
     "tx_id": "598a52c22fada492dd7e99b257dc304e",
@@ -93,7 +100,8 @@
     ],
     "address": "0x5127913D3Bfc822BDcd9D825a285C5321979f02E",
     "currency": "USDC",
-    "direction": "in"
+    "direction": "in",
+    "raw_data": null
   },
   {
     "tx_id": "a6d52e3f78b668600064a47adadc5b71",
@@ -105,7 +113,8 @@
     ],
     "address": "0x8c189BcBDaa4489d12317e33B34602f11bc00F78",
     "currency": "USDTERC",
-    "direction": "in"
+    "direction": "in",
+    "raw_data": null
   },
   {
     "tx_id": "0682440e9918c8772eeec312a7ec5b1d",
@@ -117,7 +126,8 @@
     ],
     "address": "0x5127913D3Bfc822BDcd9D825a285C5321979f02E",
     "currency": "USDTERC",
-    "direction": "in"
+    "direction": "in",
+    "raw_data": null
   },
   {
     "tx_id": "PGWb66fc67a-a7cb-4fdd-a60d-d3533f007d72",
@@ -129,7 +139,8 @@
     ],
     "address": "mg5UdWXx9ShGHv2JujMAhC5LovXZJyEYQV",
     "currency": "LTC",
-    "direction": "out"
+    "direction": "out",
+    "raw_data": null
   },
   {
     "tx_id": "55f8b90107c67d8c49ad3e69419b3769",
@@ -141,6 +152,7 @@
     ],
     "address": "mt4bHRh93YGPNDvxJqmWumn67SX2diQ5VP",
     "currency": "LTC",
-    "direction": "in"
+    "direction": "in",
+    "raw_data": null
   }
 ]

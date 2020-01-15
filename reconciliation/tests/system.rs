@@ -9,7 +9,7 @@ pub fn test_system() {
     let plugin_path = Path::new("tests").join("plugin");
 
     let start = Utc::now().timestamp_millis();
-    let mut system = System::init(FileLoader::new(mock_data_path), plugin_path).unwrap();
+    let system = System::init(FileLoader::new(mock_data_path), plugin_path).unwrap();
     let res = system.process(start, start).unwrap();
     assert_eq!(res.get("bridge_and_payment").unwrap().len(), 4);
 }
