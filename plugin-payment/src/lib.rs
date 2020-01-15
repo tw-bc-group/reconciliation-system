@@ -13,7 +13,7 @@ struct PaymentPlugin;
 
 impl Flush for PaymentPlugin {
     fn name(&self) -> &'static str {
-        "bridge"
+        "payment"
     }
 
     fn groups(&self) -> Vec<&'static str> {
@@ -23,7 +23,7 @@ impl Flush for PaymentPlugin {
     fn flush(&self, json: Value) -> Result<Vec<FlushData>> {
         serde_json::from_value::<Payment>(json)
             .map_err(Into::into)
-            .and_then(|bridge| bridge.try_into())
+            .and_then(|payment| payment.try_into())
     }
 }
 
