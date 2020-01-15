@@ -33,13 +33,13 @@ impl Default for Direction {
 pub struct FlushData {
     #[serde(default)]
     #[serde(skip_serializing)]
-    pub name: String,
     pub tx_id: String,
     pub amount: Amount,
     pub address: String,
     pub currency: String,
     pub direction: Direction,
     pub raw_data: Option<Value>,
+    pub belongs: String,
 }
 
 impl FlushData {

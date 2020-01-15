@@ -35,7 +35,7 @@ where
                 .flat_map(|v| f.flush(v))
                 .flatten()
                 .map(|mut flush_data| {
-                    flush_data.name = f.name().to_string();
+                    flush_data.belongs = f.name().to_string();
                     flush_data
                 })
                 .collect::<HashSet<FlushData>>()
@@ -59,7 +59,7 @@ where
         })
     }
 
-    pub fn run(
+    pub fn process(
         &mut self,
         start: i64,
         end: i64,

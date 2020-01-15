@@ -16,7 +16,7 @@ pub enum StatementResult {
 impl<'a> From<&'a FlushData> for StatementOneResult {
     fn from(data: &'a FlushData) -> StatementOneResult {
         StatementOneResult {
-            name: data.name.clone(),
+            name: data.belongs.clone(),
             data: data.to_owned(),
         }
     }

@@ -1,7 +1,8 @@
 mod file;
+mod http;
 
 pub mod prelude {
-    pub use super::file::*;
+    pub use super::{file::*, http::*};
 }
 
 use std::io::Read;
