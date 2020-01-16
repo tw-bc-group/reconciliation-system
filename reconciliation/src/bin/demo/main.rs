@@ -4,7 +4,7 @@ extern crate log;
 mod error;
 mod job;
 
-use std::path::Path;
+use std::{env, path::Path};
 
 use crate::{error::*, job::prelude::*};
 use actix_web::{middleware::Logger, web, App, HttpServer};
@@ -31,6 +31,12 @@ async fn reconciliation(
 async fn main() -> ::std::result::Result<(), ::std::io::Error> {
     env_logger::init();
 
+    let bind_address = format!(
+        "{}:{}",
+        env::var("HTTP_ADDRESS").unwrap_or_else(|_| String::from("127.0.0.1")),
+        env::var("HTTP_PORT").unwrap_or_else(|_| String::from("8080"))
+    );
+
     let tests_path = Path::new("tests");
     let job_manager = JobQueue::new(
         FileLoader::new(tests_path.join("mock_data")),
@@ -46,7 +52,7 @@ async fn main() -> ::std::result::Result<(), ::std::io::Error> {
             .data(web::JsonConfig::default().limit(4096))
             .service(web::resource("/reconciliation").route(web::post().to(reconciliation)))
     })
-    .bind("127.0.0.1:8080")?
+    .bind(&bind_address)?
     .run()
     .await
 }
