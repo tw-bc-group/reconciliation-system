@@ -40,7 +40,7 @@ async fn main() -> ::std::result::Result<(), ::std::io::Error> {
     let job_queue = web::Data::new(JobQueue::new(
         HttpLoader::new(&env::var("HTTP_LOADER_URL").expect("env HTTP_LOADER_URL must be set"))
             .map_err(|err| ::std::io::Error::new(::std::io::ErrorKind::Other, err))?,
-        "plugin",
+        env::var("PLUGIN_DIR").unwrap_or_else(|_| String::from("plugin")),
     ));
 
     HttpServer::new(move || {

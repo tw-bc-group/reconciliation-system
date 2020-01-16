@@ -34,7 +34,10 @@ impl JobQueue {
                         let (start, end) = job.time.buffer_time();
                         match system.process(start, end) {
                             Ok(res) => {
-                                debug!("system process result: {:?}", res);
+                                debug!(
+                                    "system process result: {}",
+                                    serde_json::to_string_pretty(&res).unwrap()
+                                );
                             }
                             Err(err) => {
                                 warn!("system process error, {:?}", err);
