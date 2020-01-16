@@ -7,6 +7,7 @@ use std::{
 };
 
 use crate::{loader::Loader, plugin::prelude::*};
+use anyhow::Result;
 use rayon::prelude::*;
 
 pub struct System<R: Read, L: Loader<R> + Sync> {

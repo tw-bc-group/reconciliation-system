@@ -48,7 +48,6 @@ pub mod prelude {
     pub use crate::entity::prelude::*;
 
     pub use super::flush::*;
-    pub use anyhow::Result;
     pub use serde_json::{json, Value};
 }
 

@@ -2,7 +2,7 @@ use std::{convert::TryFrom, str::FromStr};
 
 use super::*;
 
-use anyhow::Error;
+use anyhow::{Error, Result};
 use reconciliation::plugin::prelude::*;
 
 fn bridge_in_tx_id(tx_id: &str, position: i32) -> String {

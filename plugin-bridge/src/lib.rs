@@ -6,6 +6,7 @@ mod bridge;
 use std::convert::TryInto;
 
 use crate::bridge::*;
+use anyhow::Result;
 use reconciliation::prelude::*;
 
 #[derive(Default)]

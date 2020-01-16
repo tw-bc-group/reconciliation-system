@@ -6,6 +6,7 @@ mod payment;
 use std::convert::TryInto;
 
 use crate::payment::*;
+use anyhow::Result;
 use reconciliation::prelude::*;
 
 #[derive(Default)]
