@@ -31,4 +31,4 @@ url = "2.1"
 [dev-dependencies.cargo-husky]
 version = "1"
 default-features = false
-features = ["prepush-hook", "run-cargo-test"]
+features = ["prepush-hook", "run-cargo-fmt", "run-cargo-test"]
