@@ -12,12 +12,13 @@ test:
 	cargo test
 
 fmt:
-	rustup component add rustfmt --toolchain 1.40.0-x86_64-unknown-linux-gnu
 	cargo fmt --all
 
 clippy:
-	rustup component add clippy --toolchain 1.40.0-x86_64-unknown-linux-gnu
 	cargo clippy --all
+
+image:
+	docker build -t tw-blockchain/reconciliation-demo .
 
 check:
 	$(MAKE) clean
@@ -26,4 +27,4 @@ check:
 	$(MAKE) build
 	$(MAKE) test
 
-.PHONY: all build clean test fmt clippy check
+.PHONY: all build clean test fmt clippy check image

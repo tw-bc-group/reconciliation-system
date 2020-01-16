@@ -1,0 +1,7 @@
+.git/*
+.idea/*
+_gsdata_/*
+tests/*
+target/*
+*.iml
+*.groovy

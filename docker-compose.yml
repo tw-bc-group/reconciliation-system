@@ -1,0 +1,15 @@
+version: '2'
+services:
+  demo:
+    image: tw-blockchain/reconciliation-demo
+    restart: unless-stopped
+    environment:
+      - RUST_LOG=demo=debug,actix_web=info
+      - HTTP_ADDRESS=0.0.0.0
+      - HTTP_PORT=8080
+      - HTTP_LOADER_URL=http://192.168.225.54:8081
+      - PLUGIN_DIR=plugin
+    ports:
+      - "0.0.0.0:8080:8080"
+    logging:
+      driver: "json-file"
