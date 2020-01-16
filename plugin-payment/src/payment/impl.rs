@@ -14,7 +14,11 @@ impl TryFrom<Payment> for Vec<FlushData> {
             amount: Amount::from(payment.amount),
             address: payment.address,
             currency: payment.currency.clone(),
-            direction: Direction::In,
+            direction: if payment.r#type == 2 {
+                Direction::Out
+            } else {
+                Direction::In
+            },
             ..Default::default()
         }])
     }

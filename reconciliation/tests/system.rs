@@ -11,5 +11,5 @@ pub fn test_system() {
     let start = Utc::now().timestamp_millis();
     let system = System::init(FileLoader::new(mock_data_path), plugin_path).unwrap();
     let res = system.process(start, start).unwrap();
-    assert_eq!(res.get("bridge_and_payment").unwrap().len(), 4);
+    assert_eq!(res.get("bridge_and_payment").unwrap().len(), 7);
 }

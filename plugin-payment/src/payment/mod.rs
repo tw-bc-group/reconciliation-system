@@ -6,4 +6,5 @@ pub struct Payment {
     pub amount: i64,
     pub currency: String,
     pub serial_number: String,
+    pub r#type: i64,
 }
