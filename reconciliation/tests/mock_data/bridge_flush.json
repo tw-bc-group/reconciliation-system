@@ -1,18 +1,5 @@
 [
   {
-    "tx_id": "PGW1e4a116c-accf-462e-9c85-4388a0e93620",
-    "amount": [
-      1,
-      [
-        1000
-      ]
-    ],
-    "address": "0xF2Bd6Bb7B22875Ac582Ec1A718F63b532045401D",
-    "currency": "ETC",
-    "direction": "out",
-    "raw_data": null
-  },
-  {
     "tx_id": "PGW14f13cd3-4ff4-48d4-9d90-cac06a7a0458",
     "amount": [
       1,
@@ -127,19 +114,6 @@
     "address": "0x5127913D3Bfc822BDcd9D825a285C5321979f02E",
     "currency": "USDTERC",
     "direction": "in",
-    "raw_data": null
-  },
-  {
-    "tx_id": "PGWb66fc67a-a7cb-4fdd-a60d-d3533f007d72",
-    "amount": [
-      1,
-      [
-        100000
-      ]
-    ],
-    "address": "mg5UdWXx9ShGHv2JujMAhC5LovXZJyEYQV",
-    "currency": "LTC",
-    "direction": "out",
     "raw_data": null
   },
   {
