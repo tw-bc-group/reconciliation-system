@@ -4,7 +4,7 @@ extern crate log;
 mod error;
 mod job;
 
-use std::{env, path::Path};
+use std::env;
 
 use crate::{error::*, job::prelude::*};
 use actix_web::{middleware::Logger, web, App, HttpServer};
@@ -37,13 +37,11 @@ async fn main() -> ::std::result::Result<(), ::std::io::Error> {
         env::var("HTTP_PORT").unwrap_or_else(|_| String::from("8080"))
     );
 
-    let tests_path = Path::new("tests");
-    let job_manager = JobQueue::new(
-        FileLoader::new(tests_path.join("mock_data")),
-        tests_path.join("plugin"),
-    );
-
-    let job_queue = web::Data::new(job_manager);
+    let job_queue = web::Data::new(JobQueue::new(
+        HttpLoader::new(&env::var("HTTP_LOADER_URL").expect("env HTTP_LOADER_URL must be set"))
+            .map_err(|err| ::std::io::Error::new(::std::io::ErrorKind::Other, err))?,
+        "plugin",
+    ));
 
     HttpServer::new(move || {
         App::new()

@@ -10,8 +10,10 @@ pub struct HttpLoader {
 }
 
 impl HttpLoader {
-    pub fn new<U: Into<Url>>(u: U) -> HttpLoader {
-        HttpLoader { url: u.into() }
+    pub fn new(url: &str) -> Result<HttpLoader> {
+        Url::parse(url)
+            .map_err(Into::into)
+            .map(|url| HttpLoader { url })
     }
 }
 
