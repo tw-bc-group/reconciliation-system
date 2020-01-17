@@ -1,4 +1,4 @@
-use std::borrow::Cow;
+use std::{borrow::Cow, time::Duration};
 
 use super::*;
 use anyhow::Result;
@@ -33,6 +33,7 @@ impl Loader<Response> for HttpLoader {
             url.set_query(Some(&query));
             Client::new()
                 .get(url.as_ref())
+                .timeout(Duration::from_secs(10))
                 .send()
                 .map_err(Into::into)
                 .and_then(|response| {
