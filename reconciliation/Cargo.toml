@@ -27,6 +27,7 @@ serde_urlencoded = "0.6"
 textnonce = "0.7"
 thiserror = "1.0"
 url = "2.1"
+xlsxwriter = "0.2"
 
 [dev-dependencies.cargo-husky]
 version = "1"

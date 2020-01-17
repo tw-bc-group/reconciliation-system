@@ -3,7 +3,7 @@ use std::convert::TryFrom;
 use super::*;
 
 use anyhow::{Error, Result};
-use reconciliation::plugin::prelude::*;
+use reconciliation::prelude::*;
 
 impl TryFrom<Payment> for Vec<FlushData> {
     type Error = Error;

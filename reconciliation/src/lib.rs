@@ -6,14 +6,16 @@ extern crate log;
 extern crate serde;
 
 #[macro_use]
-pub mod macros;
-pub mod entity;
-pub mod loader;
-pub mod plugin;
-pub mod system;
+mod macros;
+mod entity;
+mod excel;
+mod loader;
+mod plugin;
+mod system;
 
 pub mod prelude {
     pub use super::{
-        declare_flush_plugin, entity::prelude::*, loader::prelude::*, plugin::prelude::*, system::*,
+        declare_flush_plugin, entity::prelude::*, excel::*, loader::prelude::*, plugin::prelude::*,
+        system::*,
     };
 }

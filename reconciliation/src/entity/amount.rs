@@ -1,4 +1,7 @@
-use std::str::FromStr;
+use std::{
+    fmt::{self, Display},
+    str::FromStr,
+};
 
 use num_bigint::{BigInt, ParseBigIntError};
 use num_traits::identities::Zero;
@@ -7,6 +10,12 @@ use num_traits::identities::Zero;
 #[serde(transparent)]
 pub struct Amount {
     inner: BigInt,
+}
+
+impl Display for Amount {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{}", self.inner)
+    }
 }
 
 impl FromStr for Amount {

@@ -1,6 +1,6 @@
 use std::{fs::File, io::BufReader, path::Path};
 
-use reconciliation::plugin::prelude::*;
+use reconciliation::prelude::*;
 use serde_json::Value;
 
 #[test]

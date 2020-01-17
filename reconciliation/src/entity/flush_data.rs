@@ -1,5 +1,6 @@
 use std::{
     cmp::{Eq, PartialEq},
+    fmt::{self, Display},
     hash::{Hash, Hasher},
 };
 
@@ -28,6 +29,17 @@ impl Default for Direction {
     }
 }
 
+impl Display for Direction {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        let s = match *self {
+            Direction::In => "入金",
+            Direction::Out => "出金",
+            Direction::Unknown => "未知",
+        };
+        write!(f, "{}", s)
+    }
+}
+
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct FlushData {
     pub tx_id: String,
@@ -42,6 +54,9 @@ pub struct FlushData {
 }
 
 impl FlushData {
+    pub fn fields() -> &'static [&'static str] {
+        &["流水号", "地址", "金额", "币种", "方向"]
+    }
     pub fn id(&self) -> String {
         format!("{}|{}", self.tx_id, self.address)
     }

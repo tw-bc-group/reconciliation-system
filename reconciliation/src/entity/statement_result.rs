@@ -2,15 +2,14 @@ use crate::entity::prelude::*;
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct StatementOneResult {
-    name: String,
-    data: FlushData,
+    pub name: String,
+    pub data: FlushData,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
 #[serde(rename_all = "snake_case")]
 pub enum StatementResult {
     OneSide(StatementOneResult),
-    //bridge and payment
     DataMismatch(Vec<StatementOneResult>, Vec<FlushDataMismatch>),
 }
 
