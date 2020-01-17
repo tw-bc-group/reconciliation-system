@@ -8,12 +8,12 @@ pipeline {
         stage('Rustfmt') {
             steps {
                 // The build will fail if rustfmt thinks any changes are required.
-                sh "make fmt"
+                sh "rustup component add rustfmt --toolchain 1.40.0-x86_64-unknown-linux-gnu; cargo fmt --all"
             }
         }
         stage('Clippy') {
             steps {
-                sh "make clippy"
+                sh "rustup component add clippy --toolchain 1.40.0-x86_64-unknown-linux-gnu; cargo clippy --all"
             }
         }
         stage('Build') {
@@ -28,7 +28,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh "make test"
+                sh "cargo test"
             }
         }
     }
