@@ -1,61 +1,52 @@
 use std::{
     cmp::{Eq, PartialEq},
-    fmt::{self, Display},
     hash::{Hash, Hasher},
 };
 
-use super::amount::*;
+use super::{amount::*, direction::*, time::*};
 use serde_json::Value;
 
 #[derive(Debug, Deserialize, Serialize)]
 #[serde(rename_all = "lowercase")]
 pub enum FlushDataMismatch {
     Amount,
+    CrossDate,
     Currency,
     Direction,
 }
 
-#[derive(Clone, Copy, Debug, Deserialize, Eq, Hash, PartialEq, Serialize)]
-#[serde(rename_all = "lowercase")]
-pub enum Direction {
-    In,
-    Out,
-    Unknown,
-}
-
-impl Default for Direction {
-    fn default() -> Direction {
-        Direction::Unknown
-    }
-}
-
-impl Display for Direction {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        let s = match *self {
-            Direction::In => "入金",
-            Direction::Out => "出金",
-            Direction::Unknown => "未知",
-        };
-        write!(f, "{}", s)
-    }
-}
-
-#[derive(Clone, Debug, Default, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct FlushData {
     pub tx_id: String,
     pub amount: Amount,
     pub address: String,
     pub currency: String,
     pub direction: Direction,
+    pub datetime: TransactionTime,
     pub raw_data: Option<Value>,
     #[serde(default)]
     #[serde(skip_serializing)]
     pub belongs: String,
 }
 
+impl Default for FlushData {
+    fn default() -> Self {
+        FlushData {
+            tx_id: String::default(),
+            amount: Amount::default(),
+            address: String::default(),
+            currency: String::default(),
+            direction: Direction::default(),
+            datetime: TransactionTime::default(),
+            raw_data: None,
+            belongs: String::default(),
+        }
+    }
+}
+
 impl FlushData {
     pub fn fields() -> &'static [&'static str] {
-        &["流水号", "地址", "金额", "币种", "方向"]
+        &["流水号", "地址", "金额", "币种", "方向", "交易时间"]
     }
     pub fn id(&self) -> String {
         format!("{}|{}", self.tx_id, self.address)

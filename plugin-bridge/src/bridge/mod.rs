@@ -14,6 +14,8 @@ pub struct BridgeOutTransaction {
     pub vout: Vec<BridgeVout>,
     pub status: String,
     pub tip: String,
+    #[serde(rename = "blockTime")]
+    pub block_time: i64,
 }
 
 #[derive(Debug, Deserialize)]
@@ -31,6 +33,8 @@ pub struct BridgeIn {
     #[serde(rename = "coinType")]
     pub coin_type: String,
     pub vout: Vec<BridgeVout>,
+    #[serde(rename = "blockTime")]
+    pub block_time: i64,
 }
 
 #[derive(Debug, Deserialize)]

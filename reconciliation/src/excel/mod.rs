@@ -6,6 +6,19 @@ pub struct Excel {
     workbook: Workbook,
 }
 
+impl From<TransactionTime> for DateTime {
+    fn from(d: TransactionTime) -> DateTime {
+        DateTime::new(
+            d.year() as i16,
+            d.month() as i8,
+            d.day() as i8,
+            d.hour() as i8,
+            d.minute() as i8,
+            d.second() as f64,
+        )
+    }
+}
+
 macro_rules! write_headers {
     ($workbook:expr, $worksheet:expr) => {
         let header_format = $workbook
@@ -21,13 +34,14 @@ macro_rules! write_headers {
 }
 
 macro_rules! write_one_result {
-    ($sheet:expr, $result:expr, $row:expr, $af:expr, $cf:expr, $df:expr) => {
+    ($sheet:expr, $result:expr, $row:expr, $af:expr, $cf:expr, $daf:expr, $df:expr) => {
         $sheet.write_string($row, 0, &$result.name, None)?;
         $sheet.write_string($row, 1, &$result.data.tx_id, None)?;
         $sheet.write_string($row, 2, &$result.data.address, None)?;
         $sheet.write_string($row, 3, &$result.data.amount.to_string(), $af)?;
         $sheet.write_string($row, 4, &$result.data.currency, $cf)?;
         $sheet.write_string($row, 5, &$result.data.direction.to_string(), $df)?;
+        $sheet.write_datetime($row, 6, &$result.data.datetime.into(), $daf)?;
         $row += 1;
     };
 }
@@ -58,18 +72,25 @@ impl Excel {
         for data in data {
             match data {
                 StatementResult::OneSide(one_result) => {
-                    write_one_result!(worksheet, one_result, row, None, None, None);
+                    write_one_result!(worksheet, one_result, row, None, None, None, None);
                     write_one_blank!(worksheet, row, Some(&mismatch_format));
                 }
                 StatementResult::DataMismatch(results, mismatches) => {
-                    let mut amount_format = None;
-                    let mut currency_format = None;
-                    let mut direction_format = None;
+                    let (
+                        mut amount_format,
+                        mut currency_format,
+                        mut datetime_format,
+                        mut direction_format,
+                    ) = (None, None, None, None);
+
                     for result in results {
                         for mismatch in mismatches {
                             match mismatch {
                                 FlushDataMismatch::Amount => {
                                     amount_format = Some(&mismatch_format);
+                                }
+                                FlushDataMismatch::CrossDate => {
+                                    datetime_format = Some(&mismatch_format);
                                 }
                                 FlushDataMismatch::Currency => {
                                     currency_format = Some(&mismatch_format);
@@ -85,6 +106,7 @@ impl Excel {
                             row,
                             amount_format,
                             currency_format,
+                            datetime_format,
                             direction_format
                         );
                     }
