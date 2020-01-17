@@ -11,5 +11,6 @@ RUN . /root/.cargo/env \
 
 FROM matrix1986/rust:ubuntu as demo
 WORKDIR /app
+RUN mkdir excel
 COPY --from=builder /app .
 CMD ["/app/demo"]

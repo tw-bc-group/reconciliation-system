@@ -1,4 +1,4 @@
-use std::thread;
+use std::{collections::HashMap, thread};
 
 use super::*;
 use crate::error::*;
@@ -13,6 +13,14 @@ pub(crate) enum JobQueueMessage {
 pub(crate) struct JobQueue {
     tx: Sender<JobQueueMessage>,
     handle: Option<thread::JoinHandle<()>>,
+}
+
+fn write_res_to_excel(job_id: &str, res: HashMap<&str, Vec<StatementResult>>) -> Result<()> {
+    let mut excel = Excel::new(format!("excel/{}.xlxs", job_id));
+    for (name, data) in res {
+        excel.write_sheet(name, &data)?;
+    }
+    excel.save().map_err(Into::into)
 }
 
 impl JobQueue {
@@ -34,10 +42,9 @@ impl JobQueue {
                         let (start, end) = job.time.buffer_time();
                         match system.process(start, end) {
                             Ok(res) => {
-                                debug!(
-                                    "system process result: {}",
-                                    serde_json::to_string_pretty(&res).unwrap()
-                                );
+                                if let Err(err) = write_res_to_excel(&job.id, res) {
+                                    warn!("failed to write or save excel, {:?}", err);
+                                }
                             }
                             Err(err) => {
                                 warn!("system process error, {:?}", err);
