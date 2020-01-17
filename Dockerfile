@@ -1,4 +1,5 @@
 FROM matrix1986/rust:rustc-stable as builder
+RUN apt-get install clang llvm -y
 WORKDIR /build
 COPY . .
 RUN mkdir -p /app/plugin
