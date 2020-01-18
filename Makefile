@@ -8,7 +8,7 @@ build:
 clean:
 	cargo clean
 
-test:
+test: build
 	cargo test
 
 fmt:

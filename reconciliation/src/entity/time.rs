@@ -14,6 +14,12 @@ impl Default for TransactionTime {
     }
 }
 
+impl From<NaiveDateTime> for TransactionTime {
+    fn from(inner: NaiveDateTime) -> Self {
+        TransactionTime { inner }
+    }
+}
+
 impl TransactionTime {
     pub fn year(&self) -> i32 {
         self.inner.year()
