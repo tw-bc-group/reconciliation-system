@@ -5,6 +5,11 @@ pipeline {
         }
     }
     stages {
+        stage("Prepare") {
+            steps {
+                sh "apt update && apt install clang llvm"
+            }
+        }
         stage('Rustfmt') {
             steps {
                 // The build will fail if rustfmt thinks any changes are required.
