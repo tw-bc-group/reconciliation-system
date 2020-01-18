@@ -3,7 +3,7 @@ use std::convert::TryFrom;
 use super::*;
 
 use anyhow::{Error, Result};
-use chrono::DateTime;
+use chrono::{DateTime, Utc};
 use reconciliation::prelude::*;
 
 impl TryFrom<Payment> for Vec<FlushData> {
@@ -16,7 +16,7 @@ impl TryFrom<Payment> for Vec<FlushData> {
             address: payment.address,
             currency: payment.currency.clone(),
             datetime: DateTime::parse_from_rfc3339(&payment.create_time)?
-                .naive_local()
+                .with_timezone(&Utc)
                 .into(),
             direction: if payment.r#type == 2 {
                 Direction::Out

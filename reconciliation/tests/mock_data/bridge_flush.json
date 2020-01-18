@@ -10,7 +10,7 @@
     "address": "TsmsgTSnJsrNUVXXyRJdymHGgfN61EmkmRL",
     "currency": "DCR",
     "direction": "out",
-    "datetime": "2019-12-17T07:59:59",
+    "datetime": "2019-12-16T23:59:59Z",
     "raw_data": null
   },
   {
@@ -24,7 +24,7 @@
     "address": "0x1669BA62c45196F30afD56c493F9267FEDB02C7e",
     "currency": "ETH",
     "direction": "out",
-    "datetime": "2019-12-17T07:59:59",
+    "datetime": "2019-12-16T23:59:59Z",
     "raw_data": null
   },
   {
@@ -38,7 +38,7 @@
     "address": "t1a5Kh3DDpD3rC49NBafQCXKBMK7zmsqduE",
     "currency": "ZEC",
     "direction": "out",
-    "datetime": "2019-12-17T07:59:59",
+    "datetime": "2019-12-16T23:59:59Z",
     "raw_data": null
   },
   {
@@ -52,7 +52,7 @@
     "address": "t1aqvGWLDV7QwMe69o8p16UmApV6sBojvn1",
     "currency": "ZEC",
     "direction": "in",
-    "datetime": "2019-12-16T08:00:00",
+    "datetime": "2019-12-16T00:00:00Z",
     "raw_data": null
   },
   {
@@ -66,7 +66,7 @@
     "address": "bm1q028sgnnwkqg3cy4ea947evkmd4pday2vh9rh24",
     "currency": "BTM",
     "direction": "in",
-    "datetime": "2019-12-16T08:00:00",
+    "datetime": "2019-12-16T00:00:00Z",
     "raw_data": null
   },
   {
@@ -80,7 +80,7 @@
     "address": "TsmsgTSnJsrNUVXXyRJdymHGgfN61EmkmRL",
     "currency": "USDC",
     "direction": "out",
-    "datetime": "2019-12-17T07:59:59",
+    "datetime": "2019-12-16T23:59:59Z",
     "raw_data": null
   },
   {
@@ -94,7 +94,7 @@
     "address": "0x5127913D3Bfc822BDcd9D825a285C5321979f02E",
     "currency": "USDC",
     "direction": "in",
-    "datetime": "2019-12-16T08:00:00",
+    "datetime": "2019-12-16T00:00:00Z",
     "raw_data": null
   },
   {
@@ -108,7 +108,7 @@
     "address": "0x8c189BcBDaa4489d12317e33B34602f11bc00F78",
     "currency": "USDTERC",
     "direction": "in",
-    "datetime": "2019-12-16T08:00:00",
+    "datetime": "2019-12-16T00:00:00Z",
     "raw_data": null
   },
   {
@@ -122,7 +122,7 @@
     "address": "0x5127913D3Bfc822BDcd9D825a285C5321979f02E",
     "currency": "USDTERC",
     "direction": "in",
-    "datetime": "2019-12-16T08:00:00",
+    "datetime": "2019-12-16T00:00:00Z",
     "raw_data": null
   },
   {
@@ -136,7 +136,7 @@
     "address": "mt4bHRh93YGPNDvxJqmWumn67SX2diQ5VP",
     "currency": "LTC",
     "direction": "in",
-    "datetime": "2019-12-16T08:00:00",
+    "datetime": "2019-12-16T00:00:00Z",
     "raw_data": null
   }
 ]

@@ -1,21 +1,47 @@
-use chrono::{Datelike, NaiveDateTime, Timelike, Utc};
+use std::ops::{Add, Sub};
 
-#[derive(Clone, Copy, Debug, Deserialize, Serialize)]
+use chrono::{DateTime, Datelike, Duration, Timelike, Utc};
+
+#[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 #[serde(transparent)]
 pub struct TransactionTime {
-    inner: NaiveDateTime,
+    inner: DateTime<Utc>,
 }
 
 impl Default for TransactionTime {
     fn default() -> Self {
+        TransactionTime { inner: Utc::now() }
+    }
+}
+
+impl AsRef<DateTime<Utc>> for TransactionTime {
+    fn as_ref(&self) -> &DateTime<Utc> {
+        &self.inner
+    }
+}
+
+impl Add<Duration> for TransactionTime {
+    type Output = Self;
+
+    fn add(self, rhs: Duration) -> Self::Output {
         TransactionTime {
-            inner: Utc::now().naive_local(),
+            inner: self.inner + rhs,
         }
     }
 }
 
-impl From<NaiveDateTime> for TransactionTime {
-    fn from(inner: NaiveDateTime) -> Self {
+impl Sub<Duration> for TransactionTime {
+    type Output = Self;
+
+    fn sub(self, rhs: Duration) -> Self::Output {
+        TransactionTime {
+            inner: self.inner - rhs,
+        }
+    }
+}
+
+impl From<DateTime<Utc>> for TransactionTime {
+    fn from(inner: DateTime<Utc>) -> TransactionTime {
         TransactionTime { inner }
     }
 }

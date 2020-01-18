@@ -4,7 +4,7 @@ use reconciliation::prelude::*;
 use serde_json::Value;
 
 #[test]
-fn test_flush_plugin() {
+fn test_flush() {
     let plugin_path = Path::new("tests").join("plugin");
     let mock_data_path = Path::new("tests").join("mock_data");
 

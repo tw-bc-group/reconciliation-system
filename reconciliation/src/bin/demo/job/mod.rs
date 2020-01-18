@@ -4,7 +4,7 @@ pub(crate) mod prelude {
     pub(crate) use super::queue::*;
 }
 
-use std::{io::Read, path::Path};
+use std::{io::Read, ops::Range, path::Path};
 
 use crate::error::*;
 use chrono::{DateTime, Duration, TimeZone, Utc};
@@ -40,10 +40,18 @@ impl JobTime {
         })
     }
 
-    pub(crate) fn buffer_time(&self) -> (i64, i64) {
-        let start = self.start - self.buffer;
-        let end = self.end - self.buffer;
-        (start.timestamp_millis(), end.timestamp_millis())
+    pub(crate) fn with_buffer(&self) -> Range<DateTime<Utc>> {
+        Range {
+            start: self.start - self.buffer,
+            end: self.end - self.buffer,
+        }
+    }
+
+    pub(crate) fn without_buffer(&self) -> Range<DateTime<Utc>> {
+        Range {
+            start: self.start,
+            end: self.end,
+        }
     }
 }
 

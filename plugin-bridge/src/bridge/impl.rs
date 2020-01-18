@@ -3,7 +3,7 @@ use std::{convert::TryFrom, str::FromStr};
 use super::*;
 
 use anyhow::{Error, Result};
-use chrono::{NaiveDateTime, TimeZone, Utc};
+use chrono::{DateTime, TimeZone, Utc};
 use reconciliation::prelude::*;
 
 fn bridge_in_tx_id(tx_id: &str, position: i32) -> String {
@@ -13,8 +13,8 @@ fn bridge_in_tx_id(tx_id: &str, position: i32) -> String {
     )
 }
 
-fn block_time_to_datetime(block_time: i64) -> NaiveDateTime {
-    Utc.timestamp_millis(block_time).naive_local()
+fn block_time_to_datetime(block_time: i64) -> DateTime<Utc> {
+    Utc.timestamp_millis(block_time)
 }
 
 impl TryFrom<Bridge> for Vec<FlushData> {

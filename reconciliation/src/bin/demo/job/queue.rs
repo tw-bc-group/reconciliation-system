@@ -16,7 +16,7 @@ pub(crate) struct JobQueue {
 }
 
 fn write_res_to_excel(job_id: &str, res: HashMap<&str, Vec<StatementResult>>) -> Result<()> {
-    let mut excel = Excel::new(format!("excel/{}.xlxs", job_id));
+    let mut excel = Excel::new(format!("excel/{}.xlsx", job_id));
     for (name, data) in res {
         excel.write_sheet(name, &data)?;
     }
@@ -39,8 +39,9 @@ impl JobQueue {
                 Ok(msg) => match msg {
                     JobQueueMessage::Job(job) => {
                         debug!("A new job coming: {:?}", job);
-                        let (start, end) = job.time.buffer_time();
-                        match system.process(start, end) {
+                        let with_buffer = job.time.with_buffer();
+                        let without_buffer = job.time.without_buffer();
+                        match system.process(with_buffer, without_buffer) {
                             Ok(res) => {
                                 if let Err(err) = write_res_to_excel(&job.id, res) {
                                     warn!("failed to write or save excel, {:?}", err);
