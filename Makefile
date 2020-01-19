@@ -22,8 +22,8 @@ image:
 
 publish:
 	docker run -d -p 5000:5000 --name registry registry:2
-	docker image tag tw-blockchain/reconciliation-demo localhost:5000/reconciliation-demo
-	docker push localhost:5000/reconciliation-demo
+	docker image tag tw-blockchain/reconciliation-demo localhost:5000/reconciliation-plugin
+	docker push localhost:5000/reconciliation-plugin
 
 check:
 	$(MAKE) clean
