@@ -1,6 +1,9 @@
 pipeline {
     agent {
-        dockerfile true
+        docker {
+            image 'rust:latest'
+        }
+        // dockerfile true
     }
     stages {
         state('IsInDocker') {
