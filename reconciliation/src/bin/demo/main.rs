@@ -7,6 +7,7 @@ mod job;
 use std::env;
 
 use crate::{error::*, job::prelude::*};
+use actix_files::NamedFile;
 use actix_web::{middleware::Logger, web, App, HttpServer};
 use reconciliation::prelude::*;
 use serde::Deserialize;
@@ -25,6 +26,10 @@ async fn reconciliation(
     queue
         .new_job(time.start, time.end)
         .map(|id| web::Json(json!({ "id": id })))
+}
+
+async fn reconciliation_excel(id: web::Path<String>) -> Result<NamedFile> {
+    NamedFile::open(format!("excel/{}.xlsx", id)).map_err(Into::into)
 }
 
 #[actix_rt::main]
@@ -49,6 +54,9 @@ async fn main() -> ::std::result::Result<(), ::std::io::Error> {
             .wrap(Logger::default())
             .data(web::JsonConfig::default().limit(4096))
             .service(web::resource("/reconciliation").route(web::post().to(reconciliation)))
+            .service(
+                web::resource("/reconciliation/{id}").route(web::get().to(reconciliation_excel)),
+            )
     })
     .bind(&bind_address)?
     .run()

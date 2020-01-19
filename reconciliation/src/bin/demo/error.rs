@@ -7,6 +7,8 @@ pub(crate) enum Error {
     Lib(#[from] anyhow::Error),
     #[error("send job error, `{0}`")]
     SendJob(#[from] crossbeam_channel::TrySendError<JobQueueMessage>),
+    #[error("std's io error, `{0}`")]
+    Stdio(#[from] std::io::Error),
 }
 
 pub(crate) type Result<T> = ::std::result::Result<T, Error>;
