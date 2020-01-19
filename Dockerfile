@@ -1,5 +1,6 @@
 FROM matrix1986/rust:rustc-stable as builder
 RUN apt-get install clang llvm libclang-dev -y
+ENV isInDocker="Yes, I'm in docker now."
 WORKDIR /build
 COPY . .
 RUN mkdir -p /app/plugin
