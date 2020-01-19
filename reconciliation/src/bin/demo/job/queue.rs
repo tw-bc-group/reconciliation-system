@@ -2,6 +2,7 @@ use std::{collections::HashMap, thread};
 
 use super::*;
 use crate::error::*;
+use chrono::FixedOffset;
 use crossbeam_channel::Sender;
 use reconciliation::prelude::*;
 
@@ -41,7 +42,11 @@ impl JobQueue {
                         debug!("A new job coming: {:?}", job);
                         let with_buffer = job.time.with_buffer();
                         let without_buffer = job.time.without_buffer();
-                        match system.process(with_buffer, without_buffer) {
+                        match system.process(
+                            with_buffer,
+                            without_buffer,
+                            FixedOffset::east(3600 * 8),
+                        ) {
                             Ok(res) => {
                                 if let Err(err) = write_res_to_excel(&job.id, res) {
                                     warn!("failed to write or save excel, {:?}", err);

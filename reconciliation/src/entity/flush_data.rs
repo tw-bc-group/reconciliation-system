@@ -4,6 +4,7 @@ use std::{
 };
 
 use super::{amount::*, direction::*, time::*};
+use chrono::FixedOffset;
 use serde_json::Value;
 
 #[derive(Debug, Deserialize, Serialize)]
@@ -48,10 +49,12 @@ impl FlushData {
     pub fn fields() -> &'static [&'static str] {
         &["流水号", "地址", "金额", "币种", "方向", "交易时间"]
     }
+
     pub fn id(&self) -> String {
         format!("{}|{}", self.tx_id, self.address)
     }
-    pub fn compare(&self, other: &FlushData) -> Vec<FlushDataMismatch> {
+
+    pub fn compare(&self, other: &FlushData, offset: FixedOffset) -> Vec<FlushDataMismatch> {
         let mut mismatches = Vec::new();
 
         if self.amount != other.amount {
@@ -64,6 +67,12 @@ impl FlushData {
 
         if self.direction != other.direction {
             mismatches.push(FlushDataMismatch::Direction);
+        }
+
+        if self.datetime.as_ref().with_timezone(&offset).date()
+            != other.datetime.as_ref().with_timezone(&offset).date()
+        {
+            mismatches.push(FlushDataMismatch::CrossDate)
         }
 
         mismatches

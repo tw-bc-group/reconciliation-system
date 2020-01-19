@@ -69,16 +69,22 @@ impl Excel {
         write_headers!(self.workbook, worksheet);
 
         let mut row = 1;
-        let mut time_format = self
+        let time_match_format = self
             .workbook
             .add_format()
             .set_num_format("dd/mm/yyyy hh:mm:ss");
+
+        let time_mismatch_format = self
+            .workbook
+            .add_format()
+            .set_num_format("dd/mm/yyyy hh:mm:ss")
+            .set_bg_color(FormatColor::Gray);
+
         let mismatch_format = self.workbook.add_format().set_bg_color(FormatColor::Gray);
 
         for data in data {
             match data {
                 StatementResult::OneSide(one_result) => {
-                    time_format = time_format.set_bg_color(FormatColor::White);
                     write_one_result!(
                         worksheet,
                         one_result,
@@ -87,7 +93,7 @@ impl Excel {
                         None,
                         None,
                         None,
-                        Some(&time_format)
+                        Some(&time_match_format)
                     );
                     write_one_blank!(worksheet, row, Some(&mismatch_format));
                 }
@@ -96,14 +102,14 @@ impl Excel {
                         (None, None, None);
 
                     for result in results {
-                        time_format = time_format.set_bg_color(FormatColor::White);
+                        let mut time_format = Some(&time_match_format);
                         for mismatch in mismatches {
                             match mismatch {
                                 FlushDataMismatch::Amount => {
                                     amount_format = Some(&mismatch_format);
                                 }
                                 FlushDataMismatch::CrossDate => {
-                                    time_format = time_format.set_bg_color(FormatColor::Gray);
+                                    time_format = Some(&time_mismatch_format);
                                 }
                                 FlushDataMismatch::Currency => {
                                     currency_format = Some(&mismatch_format);
@@ -121,7 +127,7 @@ impl Excel {
                             amount_format,
                             currency_format,
                             direction_format,
-                            Some(&time_format)
+                            time_format
                         );
                     }
                 }

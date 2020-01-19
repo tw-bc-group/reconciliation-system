@@ -1,6 +1,6 @@
 use std::{ops::Range, path::Path};
 
-use chrono::{Duration, TimeZone, Utc};
+use chrono::{Duration, FixedOffset, TimeZone, Utc};
 use reconciliation::prelude::*;
 
 #[test]
@@ -18,6 +18,7 @@ pub fn test_system() {
                 end: end + buffer,
             },
             Range { start, end },
+            FixedOffset::east(3600 * 8),
         )
         .unwrap();
     assert_eq!(res.get("bridge_and_payment").unwrap().len(), 5);

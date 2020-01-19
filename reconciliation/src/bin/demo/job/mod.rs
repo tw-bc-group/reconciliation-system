@@ -8,7 +8,6 @@ use std::{io::Read, ops::Range, path::Path};
 
 use crate::error::*;
 use chrono::{DateTime, Duration, TimeZone, Utc};
-use textnonce::TextNonce;
 
 #[derive(Debug)]
 pub(crate) struct JobTime {
@@ -26,18 +25,15 @@ impl JobTime {
         }
     }
 
-    pub(crate) fn id(&self) -> Result<String> {
-        TextNonce::sized(16).map_err(Error::TextNonce).map(|nonce| {
-            let format = "%Y%m%d";
-            let duration = Duration::hours(8);
-
-            format!(
-                "{}-{}-{}",
-                (self.start + duration).format(format),
-                (self.end + duration).format(format),
-                nonce,
-            )
-        })
+    pub(crate) fn id(&self) -> String {
+        let format = "%Y%m%d";
+        let duration = Duration::hours(8);
+        format!(
+            "{}-{}-{}",
+            (self.start + duration).format(format),
+            (self.end + duration).format(format),
+            Utc::now().timestamp_millis(),
+        )
     }
 
     pub(crate) fn with_buffer(&self) -> Range<DateTime<Utc>> {
@@ -64,7 +60,7 @@ pub(crate) struct Job {
 impl Job {
     pub fn new(start: i64, end: i64) -> Result<Job> {
         let time = JobTime::new(start, end, Duration::hours(1));
-        let id = time.id()?;
+        let id = time.id();
         Ok(Job { id, time })
     }
 }

@@ -9,7 +9,7 @@ use std::{
 
 use crate::{loader::Loader, plugin::prelude::*};
 use anyhow::Result;
-use chrono::{DateTime, Utc};
+use chrono::{DateTime, FixedOffset, Utc};
 use rayon::prelude::*;
 
 pub struct System<R: Read, L: Loader<R> + Sync> {
@@ -56,6 +56,7 @@ where
         &self,
         with_buffer: Range<DateTime<Utc>>,
         without_buffer: Range<DateTime<Utc>>,
+        offset: FixedOffset,
     ) -> Result<HashMap<&'static str, Vec<StatementResult>>> {
         let mut res = HashMap::new();
         let mut groups = HashMap::new();
@@ -99,7 +100,7 @@ where
                         }
                     }
                     2 => {
-                        let mismatches = flush_data[0].compare(flush_data[1]);
+                        let mismatches = flush_data[0].compare(flush_data[1], offset);
                         Some(StatementResult::DataMismatch(
                             flush_data.iter().map(|v| (*v).into()).collect(),
                             mismatches,
