@@ -1,6 +1,8 @@
 pipeline {
     agent {
-        dockerfile true
+        docker {
+            image 'zzybing/rust-libclang'
+        }
     }
     stages {
         stage('Rustfmt') {
