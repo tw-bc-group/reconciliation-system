@@ -1,10 +1,7 @@
 FROM matrix1986/rust:rustc-stable as builder
-RUN apt-get install clang llvm -y
+RUN apt-get install clang llvm libclang-dev -y
 WORKDIR /build
 COPY . .
-RUN apt-get update \
-    && apt-get install libclang \
-    && apt-get install libclang-dev
 RUN mkdir -p /app/plugin
 RUN . /root/.cargo/env \
     && cargo update \
