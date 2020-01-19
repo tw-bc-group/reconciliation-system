@@ -20,6 +20,11 @@ clippy:
 image:
 	docker build -t tw-blockchain/reconciliation-demo .
 
+publish:
+	docker run -d -p 5000:5000 --name registry registry:2
+	docker image tag tw-blockchain/reconciliation-demo localhost:5000/reconciliation-demo
+	docker push localhost:5000/reconciliation-demo
+
 check:
 	$(MAKE) clean
 	$(MAKE) fmt
