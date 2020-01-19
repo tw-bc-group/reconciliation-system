@@ -6,7 +6,7 @@ pipeline {
         // dockerfile true
     }
     stages {
-        state('IsInDocker') {
+        stage('IsInDocker') {
             steps {
                 sh 'echo $isInDocker'
             }

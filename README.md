@@ -3,7 +3,7 @@
 ## 环境准备
 - rust 1.40.0
 ## Jenkins Continuous Integration
-- http://52.83.49.79:9000/
+- http://52.83.41.71:9000/
 
 ## 代码结构
 1. 首先需要理解 Rust 中的 mod 和 crate，参考文章:
