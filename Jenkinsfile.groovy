@@ -1,16 +1,8 @@
 pipeline {
     agent {
-        docker {
-            image 'rust:latest'
-        }
-        // dockerfile true
+        dockerfile true
     }
     stages {
-        stage('IsInDocker') {
-            steps {
-                sh 'echo $isInDocker'
-            }
-        }
         stage('Rustfmt') {
             steps {
                 // The build will fail if rustfmt thinks any changes are required.
