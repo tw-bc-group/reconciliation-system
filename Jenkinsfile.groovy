@@ -32,6 +32,7 @@ pipeline {
             }
         }
         stage('Publish') {
+            agent none
             steps {
                 sh 'make publish'
             }
