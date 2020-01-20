@@ -1,8 +1,8 @@
 pipeline {
     agent any
     stages {
-        stage（'Test') {
-            stpes {
+        stage('Rustfmt Test') {
+            steps {
                 sh "rustup toolchain list"
             }
         }
