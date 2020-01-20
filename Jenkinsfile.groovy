@@ -1,9 +1,9 @@
 pipeline {
     agent any
     stages {
-        stage('rustup install') {
+        stage('Rustup install') {
             steps {
-                sh "rustup toolchain install stable-x86_64-unknown-linux-gnu"
+                sh "rustup uninstall toolchain stable-x86_64-unknown-linux-gnu"
             }
         }
         stage('Rustfmt') {
