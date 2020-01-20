@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image "rust:latest"
+            image "zzybing/rust-libclang:latest"
         }
     }
     stages {
