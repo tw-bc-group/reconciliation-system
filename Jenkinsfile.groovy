@@ -1,11 +1,10 @@
 pipeline {
-    agent any
-    stages {
-        stage('Rustup install') {
-            steps {
-                sh "rustup uninstall toolchain stable-x86_64-unknown-linux-gnu"
-            }
+    agent {
+        docker {
+            image "rust:latest"
         }
+    }
+    stages {
         stage('Rustfmt') {
             steps {
                 // The build will fail if rustfmt thinks any changes are required.
