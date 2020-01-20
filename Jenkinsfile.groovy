@@ -1,9 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'zzybing/rust-libclang'
-        }
-    }
+    agent any
     stages {
         stage('Rustfmt') {
             steps {
@@ -32,7 +28,6 @@ pipeline {
             }
         }
         stage('Publish') {
-            agent none
             steps {
                 sh 'make publish'
             }
