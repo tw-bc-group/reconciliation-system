@@ -1,6 +1,11 @@
 pipeline {
     agent any
     stages {
+        staget {
+            stpes {
+                sh "rustup toolchain list"
+            }
+        }
         stage('Rustfmt') {
             steps {
                 // The build will fail if rustfmt thinks any changes are required.
