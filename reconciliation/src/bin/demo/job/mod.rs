@@ -39,7 +39,7 @@ impl JobTime {
     pub(crate) fn with_buffer(&self) -> Range<DateTime<Utc>> {
         Range {
             start: self.start - self.buffer,
-            end: self.end - self.buffer,
+            end: self.end + self.buffer,
         }
     }
 

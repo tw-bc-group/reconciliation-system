@@ -7,9 +7,11 @@ services:
       - RUST_LOG=demo=debug,actix_web=info
       - HTTP_ADDRESS=0.0.0.0
       - HTTP_PORT=8080
-      - HTTP_LOADER_URL=http://192.168.225.54:8081
+      - HTTP_LOADER_URL=http://http-loader:8081
       - PLUGIN_DIR=plugin
+    expose:
+      - 8080
     ports:
-      - "0.0.0.0:8080:8080"
+      - 8080:8080
     logging:
       driver: "json-file"
